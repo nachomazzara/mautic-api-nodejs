@@ -1,0 +1,6 @@
+{
+	"mautic": {
+	    "host": "localhost",
+	    "port": 27017
+	  }
+}
