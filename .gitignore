@@ -1,5 +1,7 @@
 dist
 node_modules
+mautic-api
+src/config/config.js
 # Logs
 logs
 *.log
