@@ -4,7 +4,7 @@ import simpleOauth2 from 'simple-oauth2';
 import {ENV} from '../config/constants';
 
 const router = new Router({ prefix: '/auth' });
-const redirect_uri = ENV.BASE_URL + 'auth/callback';
+const redirect_uri = ENV.MAUTIC_REDIRECT_URI;
 const credentials = {
   client: {
     id: ENV.MAUTIC_PUBLIC_KEY,

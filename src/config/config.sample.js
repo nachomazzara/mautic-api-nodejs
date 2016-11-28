@@ -1,5 +1,6 @@
 module.exports = {
 	MAUTIC_BASE_URL: 'https://mautic.acadevor.com/',
+	MAUTIC_REDIRECT_URI: 'http://localhost:3000/auth/callback',
 	MAUTIC_PUBLIC_KEY: 'MAUTIC_PUBLIC_KEY',
 	MAUTIC_SECRET_KEY: 'MAUTIC_SECRET_KEY',
 	ACCESS_TOKEN: 'ACCESS_TOKEN',

@@ -2,7 +2,7 @@ import config from "./config";
 
 const MAUTIC_BASE_URL = config.MAUTIC_BASE_URL;
 const MAUTIC_API_URL = MAUTIC_BASE_URL + 'api/';
-const BASE_URL = 'http://localhost:3000/' ;
+const MAUTIC_REDIRECT_URI = config.MAUTIC_REDIRECT_URI;
 
 exports.ENV = (function ENV () {
 	const MAUTIC_TOKEN_PATH = 'oauth/v2/token';
@@ -13,7 +13,7 @@ exports.ENV = (function ENV () {
 	const REFRESH_TOKEN = config.REFRESH_TOKEN;
 
   return {
-    BASE_URL,
+    MAUTIC_REDIRECT_URI,
     MAUTIC_BASE_URL,
     MAUTIC_API_URL,
     MAUTIC_TOKEN_PATH,
