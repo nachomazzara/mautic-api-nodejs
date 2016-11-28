@@ -2,13 +2,13 @@
 
 RESTFul API which works as a middle layer between http request (e.g: by ajax) and Mautic RESTful API.
 
-# Use
+### Use
   * [Mautic REST API](https://developer.mautic.org/?json#rest-api).
   * Oauth 2
 
 ## Motivation
 
-Learn ES6 and how nodejs and koa (middlewares) works
+In [Acadevor](http://acadevor.com) we needed to connect with Mautic as our core marketing automation's engine.
 
 ## Installation
 
@@ -54,7 +54,7 @@ If you see a json with contacts response you did it right :+1: !!!!!
 
 ## API Reference
 
-# Endpoints at `/api/....``
+### Endpoints at `/api/....`
 
 GET /contacts get json of contacts
  @querystring search=field:value
@@ -67,7 +67,7 @@ POST /contact create a new contact
 
 PATCH /contact update a contact
   @body: {
-    'email' : 'email@email.com', 
+    'email' : 'email@email.com',
   }
 
 `localhost:3000/api/contacts`
