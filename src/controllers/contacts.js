@@ -2,18 +2,40 @@ require("babel-polyfill");
 import axios from 'axios';
 import {ENV, URLS} from '../config/constants';
 
+function throwEmailNeededException(ctx){
+  ctx.throw({ message: {
+      message: 'Bad Request' ,
+      desc:  'Email Needed',
+    }
+  }, 400);
+}
+
+function accessTokenParam(){
+  return 'access_token=' +  ENV.ACCESS_TOKEN;
+}
 
 function performGetContacts(options){
-  return axios.get(URLS.contacts,options)
+  return axios.get(URLS.GET_CONTACTS,options)
   .then(response => {
     return response.data
   })
 }
 
-function performPatchContact(contactID, body){
-  return axios.patch(URLS.contacts + '/' + contactID + '/edit?access_token=' +  ENV.ACCESS_TOKEN , {
-        firstname: body.firstname
+function performPostContact(body){
+  const url = URLS.CREATE_CONTACT + '?' + accessTokenParam();
+  return axios.post(url, body)
+    .then(response => {
+      return response.data;
     })
+    .catch(err => {
+      console.log(err);
+      throw err;
+    })
+}
+
+function performPatchContact(contactID, body){
+  const url = URLS.UPDATE_CONTACT.replace(":id",contactID) + '?' + accessTokenParam();
+  return axios.patch(url, body)
     .then(response => {
       return response.data;
     })
@@ -39,46 +61,22 @@ exports.getContact = function* getContact(){
 }
 
 exports.createContact =  function* createContact(){
-  this.body = 'create contact' ;
-   /*if(!req.body.email){
-    return res
-      .status(400)
-      .json({
-        message: 'Bad Request' ,
-        desc:  'Email Needed',
-      });
+  const body = this.request.body;
+
+  if(!body.email){
+    emailNeededException(this);
   }
 
-  axios.post(URLS.contacts + '/new?access_token=' +  ENV.ACCESS_TOKEN , {
-        email: req.body.email,
-        firstname: req.body.firstname,
-    })
-    .then(response => {
-      console.log(response);
-      return res
-      .status(201)
-      .json({ message: 'Contact created!' });
-    })
-    .catch(err => {
-      console.log(err);
-      return err.response;
-    }).then(response => {
-      return res
-      .status(response.status)
-      .json(response.data);
-    })
-  })*/
+  const response = yield performPostContact(body);
+  this.status = 200
+  this.body = response;
 }
 
 exports.updateContact = function* updateContact(){
-    let body = this.request.body;
+    const body = this.request.body;
 
     if(!body.email){
-       this.throw({ message: {
-           message: 'Bad Request' ,
-           desc:  'Email Needed',
-         }
-       }, 400);
+       throwEmailNeededException(this);
     }
 
     let options = {
@@ -86,7 +84,8 @@ exports.updateContact = function* updateContact(){
         access_token: ENV.ACCESS_TOKEN,
         search : 'email:' + body.email
       }
-    };
+    }
+
     const contacts = yield performGetContacts(options);
     //contact not found
     if(contacts.total == 0){
