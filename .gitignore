@@ -1,2 +1,17 @@
 dist
+node_modules
 src/config/config.js
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+# Output of 'npm pack'
+*.tgz
+# Optional npm cache directory
+.npm
