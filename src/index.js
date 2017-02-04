@@ -16,7 +16,6 @@ app.use(function *(next) {
     if(err.response && err.response.statusText){
        message = {message : err.response.statusText}
     }
-
     this.status = err.status || (err.response && err.response.status) || 500;
     this.body = message || err.message ;
     this.app.emit('error', err, this);

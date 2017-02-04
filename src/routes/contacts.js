@@ -15,4 +15,9 @@ router.post('/',koaBody, Contact.createContact);
 /* PATCH /contacts edit. */
 router.patch('/',koaBody, Contact.updateContact);
 
+/* PATCH /dnc set No contacts */
+router.patch('/dnc',koaBody, Contact.dnc);
+
+
+
 export default router;
